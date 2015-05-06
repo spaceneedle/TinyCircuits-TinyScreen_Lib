@@ -397,6 +397,7 @@ size_t TinyScreen::write(uint8_t ch){
 /*
 
 drawBitmap(image,x,y); // draw a bitmap image at position X,Y as fast as possible
+drawFlashBitmap(image,x,y); // Draw a bitmap out of flash memory (use "PROGMEM const unsigned char" to store image in flash)
 
 Bitmap must contain X and Y size at start of image. 
 
@@ -417,3 +418,19 @@ void TinyScreen::drawBitmap(unsigned char *image, uint8_t x, uint8_t y) {
     writeBuffer(image + 2,sizex * sizey);            // Skip past the X Y size data, send the rest of the buffer to screen
     endTransfer();                                   // End the transfer
   }      
+
+
+void TinyScreen::drawFlashBitmap(const unsigned char *image, uint8_t x, uint8_t y) { 
+      uint8_t sizex = pgm_read_byte_near(image);                        // get X size
+      uint8_t sizey = pgm_read_byte_near(image+1);                        // get Y size
+     setX(x,x+sizex - 1);                             // Set up X window 
+     setY(y,y+sizey - 1);                             // Set up Y window 
+     uint8_t buffer;
+     startData();                                     // Start data transfer
+     for(int b = 2; b < (sizex * sizey); b++) {
+        SPDR = pgm_read_byte_near(b + image);
+        while (!(SPSR & _BV(SPIF)));
+      }  
+    endTransfer();                                   // End the transfer
+  }      
+

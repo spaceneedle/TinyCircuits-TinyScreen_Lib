@@ -98,6 +98,7 @@ class TinyScreen : public Print {
   void fontColor(uint8_t, uint8_t);
   virtual size_t write(uint8_t);
   void drawBitmap(unsigned char *image, uint8_t x, uint8_t y);
+  void drawFlashBitmap(const unsigned char *image, uint8_t x, uint8_t y);
   
   static const uint8_t xMax=95;
   static const uint8_t yMax=63;

@@ -39,6 +39,7 @@ setCursor	KEYWORD2
 fontColor	KEYWORD2
 setFlip	KEYWORD2
 drawBitmap	KEYWORD2
+drawFlashBitmap	KEYWORD2
 
 #######################################
 # Constants (LITERAL1)
