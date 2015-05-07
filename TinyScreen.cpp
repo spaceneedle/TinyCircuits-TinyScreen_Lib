@@ -420,7 +420,7 @@ void TinyScreen::drawBitmap(unsigned char *image, uint8_t x, uint8_t y) {
   }      
 
 
-void TinyScreen::drawFlashBitmap(const unsigned char *image, uint8_t x, uint8_t y) { 
+void TinyScreen::drawBitmap(const unsigned char *image, uint8_t x, uint8_t y) { 
       uint8_t sizex = pgm_read_byte_near(image);                        // get X size
       uint8_t sizey = pgm_read_byte_near(image+1);                        // get Y size
      setX(x,x+sizex - 1);                             // Set up X window 
